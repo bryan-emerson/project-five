@@ -1,48 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 import Square from './Square.js';
-
-
-
-let squares = document.querySelectorAll('.square');
-console.log(squares)
-// let modal = document.querySelector('.modal');
-// let modalClose = document.querySelector('.close');
-// let modTop = document.querySelector('.modTop');
-// let modBtm = document.querySelector('.modBtm');
-
-// modalClose.addEventListener('click', function () {
-//   modal.style.display = 'none';
-// })
-
-// for (let j = 0; j < squares.length; j++) {
-//   squares[j].addEventListener('click', function () {
-//     //console.log(this.style)
-//     modal.style.display = 'block';
-//     modTop.style.background = this.style.background
-//     modTop.style.backgroundSize = 'cover'
-//     modBtm.innerText = "download me"
-//   })
-// }
-
-function getAllPhotos(photosArray) {
-  let tempArray = [];
-  for (let i = 0; i < photosArray.length; i++) {
-    //console.log(photosArray[i].download_url)
-    let add = photosArray[i].download_url
-    tempArray.push(<Square pic={photosArray[i]} />)
-    //squares[i].style.background = `url(${add})`
-    //console.log(squares[i].style)
-  }
-  return tempArray;
-}
-
+import Modal from './Modal.js';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      photos: []
+      photos: [],
+      modalToShow: ''
     };
   }
 
@@ -57,22 +23,49 @@ class App extends Component {
       })
   }
 
+
+  handleShowModal = (id) => {
+    this.setState({ modalToShow: id })
+  }
+
+  handleCloseModal = () => {
+    this.setState({modalToShow: null })
+  }
+
+  getAllPhotos = (photosArray) => {
+    let tempArray = [];
+    for (let i = 0; i < photosArray.length; i++) {
+      //console.log(photosArray[i])
+      let add = photosArray[i].download_url
+      tempArray.push(<Square key={photosArray[i].id} handleShowModal={this.handleShowModal} pic={photosArray[i]} bg={`url(${add})`} />)
+    }
+    return tempArray;
+  }
+
   render() {
-    //console.log(this.state.photos[0])
+    const modalObj = this.state.photos.filter(modal => modal.id === this.state.modalToShow)
+
+    console.log(modalObj)
+    console.log(this.state.modalToShow)
+
     let allPhotos = "";
 
     if (this.state.photos.length) {
-      allPhotos = getAllPhotos(this.state.photos)
+      allPhotos = this.getAllPhotos(this.state.photos)
     }
 
     //console.log(allPhotos)
     return (
       <body>
-        <h1>Alright Alright Alriiiight</h1>
+        <h1>Click a square</h1>
         <div className='section'>
           {allPhotos}
         </div>
-        {/* <Square pic = {this.state}/> */}
+         {/* conditional here for modal */}
+         <div>
+           {this.state.modalToShow ?<Modal content={modalObj} handleCloseModal= {this.handleCloseModal} /> : null}
+
+         </div>
       </body>
     )
   }

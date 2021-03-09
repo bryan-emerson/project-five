@@ -1,12 +1,15 @@
 import React from 'react';
-import App from './App';
+// import App from './App';
 import './Square.css';
 
 function Square(props) {
-  //console.log(props.pic)
+  const squareStyles = {
+    background: props.bg
+  }
+  //console.log(props.pic.id)
   return(
-    <div className='square'>
-      <h6>this will be a square {''}</h6>
+    <div onClick={()=>props.handleShowModal(props.pic.id)} className='square' style={squareStyles}>
+      {/* <h6>this will be a square {''}</h6> */}
     </div>
   )
 }
