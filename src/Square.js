@@ -4,7 +4,9 @@ import './Square.css';
 
 function Square(props) {
   const squareStyles = {
-    background: props.bg
+    background: props.bg,
+    height: "200px",
+    width: "200px"
   }
   //console.log(props.pic.id)
   return(

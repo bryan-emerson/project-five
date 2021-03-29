@@ -60,9 +60,10 @@ class App extends Component {
         <h1>Click a square</h1>
         <div className='section'>
           {allPhotos}
+
         </div>
          {/* conditional here for modal */}
-         <div>
+         <div className="modalWrapper">
            {this.state.modalToShow ?<Modal content={modalObj} handleCloseModal= {this.handleCloseModal} /> : null}
 
          </div>

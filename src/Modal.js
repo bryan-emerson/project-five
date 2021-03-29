@@ -8,12 +8,12 @@ function Modal(props) {
   return (
     <section className='modContainer'>
       <div className="modal" onClick={() => props.handleCloseModal()}>
-        <h1>{props.content[0].author}</h1>
+        {/* <h1>{props.content[0].author}</h1> */}
         <div className="modTop">
-          <img src={props.content[0].download_url} />
+          <img className="modalImage" src={props.content[0].download_url} />
         </div>
-        <div className="modBtm">...</div>
-        <h1>{props.content[0].author}</h1>
+        <div className="modBtm"><h1>{props.content[0].author}</h1></div>
+        {/* <h1>{props.content[0].author}</h1> */}
       </div>
     </section>
   )
